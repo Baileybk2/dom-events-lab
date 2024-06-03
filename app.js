@@ -21,46 +21,15 @@ buttons.forEach((button) => {
     let isOperator = clickedButton.classList.contains("operator");
 
     if (isNumber) {
-      if (operator === undefined) {
-        firstNumber += clickButtonText;
-        console.log("firstNumber:", firstNumber);
-      } else {
-        secondNumber += clickButtonText;
-        console.log("secondNumber:", secondNumber);
-      }
+      setNumbers(clickButtonText);
     }
 
     if (isOperator) {
-      if (clickButtonText === "C") {
-        firstNumber = "";
-        secondNumber = "";
-        operator = undefined;
-        console.log("claculator cleared!");
-      } else {
-        operator = clickButtonText;
-        console.log("operator:", operator);
-      }
+      setOperator(clickButtonText);
     }
 
     if (isEquals) {
-      let num1 = Number(firstNumber);
-      let num2 = Number(secondNumber);
-
-      if (operator === "+") {
-        addition(num1, num2);
-        console.log(addition(num1, num2));
-      } else if (operator === "-") {
-        subtraction(num1, num2);
-        console.log(subtraction(num1, num2));
-      } else if (operator === "*") {
-        multiplication(num1, num2);
-        console.log(multiplication(num1, num2));
-      } else if (operator === "/") {
-        division(num1, num2);
-        console.log(division(num1, num2));
-      } else {
-        return "error";
-      }
+      calculate();
     }
   });
 });
@@ -80,4 +49,47 @@ const multiplication = (num1, num2) => {
 
 const division = (num1, num2) => {
   return num1 / num2;
+};
+
+const calculate = () => {
+  let num1 = Number(firstNumber);
+  let num2 = Number(secondNumber);
+
+  if (operator === "+") {
+    addition(num1, num2);
+    console.log(addition(num1, num2));
+  } else if (operator === "-") {
+    subtraction(num1, num2);
+    console.log(subtraction(num1, num2));
+  } else if (operator === "*") {
+    multiplication(num1, num2);
+    console.log(multiplication(num1, num2));
+  } else if (operator === "/") {
+    division(num1, num2);
+    console.log(division(num1, num2));
+  } else {
+    return "error";
+  }
+};
+
+const setOperator = (clickButtonText) => {
+  if (clickButtonText === "C") {
+    firstNumber = "";
+    secondNumber = "";
+    operator = undefined;
+    console.log("claculator cleared!");
+  } else {
+    operator = clickButtonText;
+    console.log("operator:", operator);
+  }
+};
+
+const setNumbers = (clickButtonText) => {
+  if (operator === undefined) {
+    firstNumber += clickButtonText;
+    console.log("firstNumber:", firstNumber);
+  } else {
+    secondNumber += clickButtonText;
+    console.log("secondNumber:", secondNumber);
+  }
 };
