@@ -3,11 +3,17 @@
 const buttons = document.querySelectorAll(".button");
 console.log("Buttons:", buttons);
 
+const display = document.querySelector(".display");
+console.log("Display:", display);
+
 /*-------------------------------- Variables --------------------------------*/
 
 let firstNumber = "";
 let secondNumber = "";
 let operator = undefined;
+let userDisplay = "";
+let result;
+let clear = "0";
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -20,6 +26,8 @@ buttons.forEach((button) => {
     let isEquals = clickedButton.classList.contains("equals");
     let isOperator = clickedButton.classList.contains("operator");
 
+    display.textContent = clickButtonText;
+
     if (isNumber) {
       setNumbers(clickButtonText);
     }
@@ -30,6 +38,7 @@ buttons.forEach((button) => {
 
     if (isEquals) {
       calculate();
+      display.textContent = result;
     }
   });
 });
@@ -56,20 +65,21 @@ const calculate = () => {
   let num2 = Number(secondNumber);
 
   if (operator === "+") {
-    addition(num1, num2);
-    console.log(addition(num1, num2));
+    result = addition(num1, num2);
+    console.log(result);
   } else if (operator === "-") {
-    subtraction(num1, num2);
-    console.log(subtraction(num1, num2));
+    result = subtraction(num1, num2);
+    console.log(result);
   } else if (operator === "*") {
-    multiplication(num1, num2);
-    console.log(multiplication(num1, num2));
+    result = multiplication(num1, num2);
+    console.log(result);
   } else if (operator === "/") {
-    division(num1, num2);
-    console.log(division(num1, num2));
+    result = division(num1, num2);
+    console.log(result);
   } else {
     return "error";
   }
+  return result;
 };
 
 const setOperator = (clickButtonText) => {
@@ -77,6 +87,7 @@ const setOperator = (clickButtonText) => {
     firstNumber = "";
     secondNumber = "";
     operator = undefined;
+    display.textContent = clear;
     console.log("claculator cleared!");
   } else {
     operator = clickButtonText;
@@ -87,9 +98,11 @@ const setOperator = (clickButtonText) => {
 const setNumbers = (clickButtonText) => {
   if (operator === undefined) {
     firstNumber += clickButtonText;
+    display.textContent = firstNumber;
     console.log("firstNumber:", firstNumber);
   } else {
     secondNumber += clickButtonText;
+    display.textContent = secondNumber;
     console.log("secondNumber:", secondNumber);
   }
 };
